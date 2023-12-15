@@ -36,15 +36,25 @@ def main():
     """
     config = configparser.ConfigParser()
     config.read('dwh.cfg')
-    #Connect to our database
-    conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['CLUSTER'].values()))
-    cur = conn.cursor()
-    #Drop tables
-    drop_tables(cur, conn)
-    #Create tables
-    create_tables(cur, conn)
-    #Close our database connection
-    conn.close()
+
+    try:    
+        #Connect to our database
+        conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['CLUSTER'].values()))
+        cur = conn.cursor()
+        
+        #Drop tables
+        drop_tables(cur, conn)
+            
+        #Create tables
+        create_tables(cur, conn)
+
+   except Exception as e:
+        print("Error:", e)
+
+   finally:
+        #Close our database connection
+         if conn is not None:  
+                conn.close()
 
 
 if __name__ == "__main__":
