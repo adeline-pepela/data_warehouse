@@ -28,7 +28,6 @@ def create_tables(cur, conn):
         cur.execute(query)
         conn.commit()
 
-
 def main():
     """
     Main ETL processes that connect to the databases,
@@ -49,12 +48,12 @@ def main():
         create_tables(cur, conn)
 
    except Exception as e:
-        print("Error:", e)
+      print("Error:", e)
 
    finally:
         #Close our database connection
          if conn is not None:  
-                conn.close()
+             conn.close()
 
 
 if __name__ == "__main__":
