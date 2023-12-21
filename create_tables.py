@@ -36,7 +36,7 @@ def main():
     config = configparser.ConfigParser()
     config.read('dwh.cfg')
 
-    try:    
+try:    
         #Connect to our database
         conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['CLUSTER'].values()))
         cur = conn.cursor()
@@ -47,10 +47,10 @@ def main():
         #Create tables
         create_tables(cur, conn)
 
-   except Exception as e:
+except Exception as e:
       print("Error:", e)
 
-   finally:
+finally:
         #Close our database connection
          if conn is not None:  
              conn.close()
