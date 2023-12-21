@@ -50,11 +50,5 @@ try:
 except Exception as e:
       print("Error:", e)
 
-finally:
-        #Close our database connection
-         if conn is not None:  
-             conn.close()
-
-
 if __name__ == "__main__":
     main()
