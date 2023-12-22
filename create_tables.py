@@ -30,25 +30,21 @@ def create_tables(cur, conn):
 
 def main():
     """
-    Main ETL processes that connect to the databases,
-    drop_tables, create_tables.
+    Main script to connect the database also drop existing tables, and create new tables.
     """
     config = configparser.ConfigParser()
     config.read('dwh.cfg')
-
-try:    
-        #Connect to our database
+    
+        # Connect to the database
         conn = psycopg2.connect("host={} dbname={} user={} password={} port={}".format(*config['CLUSTER'].values()))
         cur = conn.cursor()
-        
-        #Drop tables
-        drop_tables(cur, conn)
-            
-        #Create tables
-        create_tables(cur, conn)
 
-except Exception as e:
-      print("Error:", e)
+        # Drop existing tables
+        drop_tables(cur, conn)
+
+        # Create new tables
+        create_tables(cur, conn)
+        
 
 if __name__ == "__main__":
     main()
